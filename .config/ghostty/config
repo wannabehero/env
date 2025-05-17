@@ -1,0 +1,12 @@
+auto-update = check
+cursor-invert-fg-bg = true
+cursor-style = block
+font-family = SF Mono
+font-size = 16
+font-thicken = true
+macos-option-as-alt = left
+macos-titlebar-style = tabs
+mouse-hide-while-typing = true
+shell-integration-features = no-cursor
+theme = niji
+window-colorspace = display-p3

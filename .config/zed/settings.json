@@ -1,0 +1,73 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+    "edit_predictions": {
+        "mode": "eager",
+        "copilot": {
+            "proxy": null,
+            "proxy_no_verify": null
+        },
+        "enabled_in_text_threads": false
+    },
+    "theme": "Ayu Dark",
+    "agent": {
+        "default_model": {
+            "provider": "zed.dev",
+            "model": "claude-3-7-sonnet-latest"
+        },
+        "version": "2"
+    },
+    "features": {
+        "edit_prediction_provider": "zed"
+    },
+    "ui_font_size": 16,
+    "buffer_font_size": 16.0,
+    "format_on_save": "on",
+    "formatter": {
+        "language_server": {
+            "name": "biome"
+        }
+    },
+    "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.fixAll.eslint": true
+    },
+    "buffer_font_family": "SF Mono",
+    "buffer_font_fallbacks": ["Liga SFMono Nerd Font"],
+    "terminal": {
+        "option_as_meta": true
+    },
+    "lsp": {
+        "biome": {
+            "settings": {
+                "require_config_file": true
+            }
+        },
+        "yaml-language-server": {
+            "settings": {
+                "yaml": {
+                    "customTags": [
+                        "!file mapping",
+                        "!file scalar",
+                        "!file sequence",
+                        "!folder mapping",
+                        "!folder scalar",
+                        "!folder sequence",
+                        "!json mapping",
+                        "!json scalar",
+                        "!json sequence",
+                        "!request mapping",
+                        "!request scalar",
+                        "!request sequence"
+                    ]
+                }
+            }
+        }
+    }
+}

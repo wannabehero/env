@@ -1,0 +1,7 @@
+[tools]
+1password = "latest"
+gcloud = "latest"
+github-cli = "latest"
+gitui = "latest"
+jq = "latest"
+starship = "latest"
