@@ -10,3 +10,21 @@ mouse-hide-while-typing = true
 shell-integration-features = no-cursor
 theme = niji
 window-colorspace = display-p3
+adjust-cell-height = 10%
+
+# -- Key Bindings ---
+keybind = shift+enter=text:\n
+
+# Scroll one line
+keybind = shift+up=scroll_page_lines:-1
+keybind = shift+down=scroll_page_lines:1
+
+# Scroll one page
+keybind = shift+page_up=scroll_page_up
+keybind = shift+page_down=scroll_page_down
+
+# Open the screen file
+keybind = super+shift+j=write_screen_file:open
+
+# Open quick terminal
+keybind = global:super+ctrl+g=toggle_quick_terminal

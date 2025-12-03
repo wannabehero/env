@@ -27,3 +27,8 @@ alias gcm='git checkout $(git_main_branch)'
 
 alias la='ls -lahF --color=auto'
 alias gauth="gcloud auth login --update-adc"
+
+alias tf='terraform'
+alias zed='open -a Zed'
+alias k='kubectl'
+alias kontext='kubectl config use-context'

@@ -1,7 +1,11 @@
 [tools]
 1password = "latest"
+bat = "latest"
+colima = "latest"
 gcloud = "latest"
 github-cli = "latest"
 gitui = "latest"
 jq = "latest"
+lima = "latest"
+rg = "latest"
 starship = "latest"

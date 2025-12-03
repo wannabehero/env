@@ -16,13 +16,6 @@
         "enabled_in_text_threads": false
     },
     "theme": "Ayu Dark",
-    "agent": {
-        "default_model": {
-            "provider": "zed.dev",
-            "model": "claude-3-7-sonnet-latest"
-        },
-        "version": "2"
-    },
     "features": {
         "edit_prediction_provider": "zed"
     },
