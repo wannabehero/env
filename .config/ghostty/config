@@ -10,7 +10,7 @@ mouse-hide-while-typing = true
 shell-integration-features = no-cursor
 theme = niji
 window-colorspace = display-p3
-adjust-cell-height = 10%
+adjust-cell-height = 20%
 
 # -- Key Bindings ---
 keybind = shift+enter=text:\n
