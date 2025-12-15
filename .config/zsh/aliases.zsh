@@ -23,6 +23,9 @@ alias gl='git pull'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
 
+alias gwa='f() { BRANCH="${1:-$(sort -R /usr/share/dict/words | head -n 2 | paste -sd "-" -)}"; git worktree add ../"$(basename "$PWD")-$BRANCH" -b "$BRANCH" && cd ../"$(basename "$PWD")-$BRANCH"; }; f'
+alias gwr='f() { git worktree remove ../"$(basename "$PWD")-$1"; }; f'
+
 alias gcm='git checkout $(git_main_branch)'
 
 alias la='ls -lahF --color=auto'
