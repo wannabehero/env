@@ -35,3 +35,5 @@ alias tf='terraform'
 alias zed='open -a Zed'
 alias k='kubectl'
 alias kontext='kubectl config use-context'
+
+alias mr='mise registry'
