@@ -1,0 +1,9 @@
+[include]
+    path = ~/.gitconfig.local
+    path = ~/.config/delta/delta.gitconfig
+
+[merge]
+    conflictstyle = zdiff3
+
+[diff]
+    colorMoved = default

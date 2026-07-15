@@ -5,24 +5,30 @@ YELLOW='\033[0;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 mkdir -p ~/.config
 
 echo -e "${BLUE}Processing configuration directories...${NC}"
-for dir in "$(pwd)"/.config/*; do
+for dir in "$SCRIPT_DIR"/.config/*; do
     dirname=$(basename "$dir")
+    target_path=~/.config/"$dirname"
     echo -e "${BLUE}Setting up ${YELLOW}$dirname${BLUE} configuration...${NC}"
 
-    if [[ ! -L ~/.config/"$dirname" ]]; then
-        echo -e "  ${GREEN}Using default link: ${YELLOW}$dir${GREEN} → ${YELLOW}~/.config/$dirname${NC}"
-        ln -sf "$dir" ~/.config/"$dirname"
+    if [[ ! -L "$target_path" ]]; then
+        if [[ -e "$target_path" ]]; then
+            echo -e "  ${YELLOW}Backing up existing $target_path to $target_path.bak${NC}"
+            mv "$target_path" "$target_path.bak"
+        fi
+        echo -e "  ${GREEN}Using default link: ${YELLOW}$dir${GREEN} → ${YELLOW}$target_path${NC}"
+        ln -s "$dir" "$target_path"
     fi
 done
 
 echo -e "${BLUE}Processing ~HOME/ files...${NC}"
-find "$(pwd)"/home -type f | while read -r file; do
-    rel_path="${file#"$(pwd)/home/"}"
+find "$SCRIPT_DIR"/home -type f | while read -r file; do
+    rel_path="${file#"$SCRIPT_DIR/home/"}"
     dir_part=$(dirname "$rel_path")
-    filename=$(basename "$file")
 
     echo -e "${BLUE}Setting up ${YELLOW}$rel_path${BLUE} file...${NC}"
 
@@ -33,8 +39,12 @@ find "$(pwd)"/home -type f | while read -r file; do
     target_path=~/"$rel_path"
 
     if [[ ! -L "$target_path" ]]; then
+        if [[ -e "$target_path" ]]; then
+            echo -e "  ${YELLOW}Backing up existing $target_path to $target_path.bak${NC}"
+            mv "$target_path" "$target_path.bak"
+        fi
         echo -e "  ${GREEN}Using default link: ${YELLOW}$file${GREEN} → ${YELLOW}$target_path${NC}"
-        ln -sf "$file" "$target_path"
+        ln -s "$file" "$target_path"
     fi
 done
 
@@ -53,13 +63,14 @@ fi
 
 if command -v brew &> /dev/null; then
     echo -e "${YELLOW}Installing packages from Brewfile...${NC}"
-    brew bundle --file="./tools/Brewfile"
+    brew bundle --file="$SCRIPT_DIR/tools/Brewfile"
     echo -e "${GREEN}Brewfile packages installed successfully!${NC}"
 fi
 
 if ! command -v mise &> /dev/null; then
     echo -e "${YELLOW}Installing mise...${NC}"
     curl https://mise.run | sh
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 mise install
@@ -68,7 +79,6 @@ if command -v op &> /dev/null; then
     if op document get mise.config --out-file ~/.config/mise/config.local.toml --force &>/dev/null; then
         echo -e "${GREEN}Successfully retrieved local mise config from 1Password${NC}"
         mise install &> /dev/null
-        mise config &> /dev/null
     else
         echo -e "${YELLOW}Could not find mise.config document in 1Password.${NC}"
     fi
@@ -77,8 +87,11 @@ fi
 mkdir -p ~/Library/Fonts
 
 if ! ls ~/Library/Fonts/SF-* &> /dev/null; then
-    gcloud components install gsutil --quiet &> /dev/null
     echo -e "${BLUE}Installing fonts...${NC}"
-    gsutil cp gs://dev-pronin/fonts.tar.gz /tmp/fonts.tar.gz 2> /dev/null
-    tar -xzf /tmp/fonts.tar.gz -C ~/Library/Fonts/
+    mise exec gcloud -- gcloud components install gsutil --quiet &> /dev/null
+    if mise exec gcloud -- gsutil cp gs://dev-pronin/fonts.tar.gz /tmp/fonts.tar.gz 2> /dev/null; then
+        tar -xzf /tmp/fonts.tar.gz -C ~/Library/Fonts/
+    else
+        echo -e "${YELLOW}Could not download fonts (is gcloud authenticated?). Skipping.${NC}"
+    fi
 fi

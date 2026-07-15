@@ -1,0 +1,10 @@
+[delta]
+    navigate = false
+    line-numbers = true
+    side-by-side = false
+    true-color = always
+    features = decorations
+[delta "decorations"]
+    commit-decoration-style = blue box
+    file-decoration-style = blue ul
+    hunk-header-decoration-style = blue box
